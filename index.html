@@ -220,21 +220,11 @@ function setupEventListeners() {
 // Google Sheetsからデータ取得
 async function loadQuestions() {
     try {
-const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/query?tq=select%20A,B,C,D,E,F,G,H&tqx=out:json`;
-    
+    const url = 'https://script.google.com/macros/s/AKfycbzBYwLJPY08r3HT6p3eSUnTTfSiJNxe8_V9KlFqYfiz6X8qfPMPST6vtmGA5kZUtgen1A/usercontent';    
     const response = await fetch(url);
 const jsonData = await response.json();
-const rows = jsonData.table.rows.map(row => row.c.map(cell => cell ? cell.v : ''));
-                const headers = jsonData.table.cols.map(col => col.label);
-        const allQuestions = [];
-        for (let i = 1; i < rows.length; i++)
-             {
-                           const row = rows[i];
-                           if (row.length >= 10) {
-                                           allQuestions.push({id: row[0], question: row[1], options: [row[2], row[3], row[4], row[5]], correct: parseInt(row[6]), type: row[7], category: row[8], difficulty: parseInt(row[9]), wrong: false});
-                                         }
-                         }
-    
+        allQuestions = jsonData;
+             
 applyFilters();
     } catch (e) {
         console.error('データ読み込みエラー:', e);
@@ -560,6 +550,7 @@ function shareOnX() {
     </script>
 </body>
 </html>
+
 
 
 
