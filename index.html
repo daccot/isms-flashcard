@@ -220,12 +220,12 @@ function setupEventListeners() {
 // Google Sheetsからデータ取得
 223
     () {
-const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv`;
+const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/query?tq=select%20A,B,C,D,E,F,G,H&tqx=out:json`;
     
     const response = await fetch(url);
-        const data = await response.text();
-        const rows = data.trim().split('\n').map(line => line.split(',').map(cell => /^"|"/g(/^"|"|$/g, '')));
-        const headers = rows[0];
+const jsonData = await response.json();
+const rows = jsonData.table.rows.map(row => row.c.map(cell => cell ? cell.v : ''));
+                const headers = jsonData.table.cols.map(col => col.label);
         const allQuestions = [];
         for (let i = 1; i < rows.length; i++)
              {
@@ -560,5 +560,6 @@ function shareOnX() {
     </script>
 </body>
 </html>
+
 
 
