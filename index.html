@@ -193,8 +193,7 @@ const SHEET_ID = '1fZM_E7gYopOsVc6fQ-sK9A03F78sNfOub1x0PyxM9iQ';
 let allQuestions = [];
 let filteredQuestions = [];
 let currentQuestion = 0;
-let correctCount = 0;
-let selectedAnswers = {};
+AKfycbxw8B2SdH1l0zQNLkDiyGfsolatVyGLRTCFxNBVTbs3HN7S5dEnlaogMR7Nlet selectedAnswers = {};
 let quizStarted = false;
 
 // 初期化
@@ -220,8 +219,7 @@ function setupEventListeners() {
 // Google Sheetsからデータ取得
 async function loadQuestions() {
         try {
-    const url = 'https://script.google.com/macros/s/AKfycbxw8B2SdH1I0zQNLkDiyGfso1atVyGLRTCFxNBWTTbsJHM75dcEnlaogMR7NfWnbuxJFA/exec';    
-    const response = await fetch(url);
+    const url = 'https://script.google.com/macros/s/AKfycbz7ru38v7UvLMGMF9BYE6-EwD7T7kP5x_18Ffy a90Vc230c8hFNecWKUF5De/usercontent';    const response = await fetch(url);
 const jsonData = await response.json();
         allQuestions = jsonData;
              
@@ -550,6 +548,7 @@ function shareOnX() {
     </script>
 </body>
 </html>
+
 
 
 
