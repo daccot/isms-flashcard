@@ -218,29 +218,24 @@ function setupEventListeners() {
 }
 
 // Google Sheetsからデータ取得
-async function loadQuestions() {
-    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=Sheet1`;
-    try {
-        const response = await fetch(url);
+223
+    () {
+const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv`;
+    
+    const response = await fetch(url);
         const data = await response.text();
-        const json = JSON.parse(data.match(/(?<=google.visualization.Query.setResponse\()[\s\S]*?(?=\);)/)[0]);
-        
-        allQuestions = [];
-        json.table.rows.forEach(row => {
-            if (row.c && row.c[0]) {
-                allQuestions.push({
-                    id: row.c[0].v,
-                    question: row.c[1].v,
-                    options: [row.c[2].v, row.c[3].v, row.c[4].v, row.c[5].v],
-                    correct: row.c[6].v,
-                    type: row.c[7].v,
-                    category: row.c[8].v,
-                    difficulty: row.c[9].v,
-                    wrong: false
-                });
-            }
-        });
-        applyFilters();
+        const rows = data.trim().split('\n').map(line => line.split(',').map(cell => cell.replace(/^"|"|$/g, '')));
+        const headers = rows[0];
+        const allQuestions = [];
+        for (let i = 1; i < rows.length; i++)
+             {
+                           const row = rows[i];
+                           if (row.length >= 10) {
+                                           allQuestions.push({id: row[0], question: row[1], options: [row[2], row[3], row[4], row[5]], correct: parseInt(row[6]), type: row[7], category: row[8], difficulty: parseInt(row[9]), wrong: false});
+                                         }
+                         }
+    
+applyFilters();
     } catch (e) {
         console.error('データ読み込みエラー:', e);
         document.getElementById('questionText').textContent = 'データ読み込みに失敗しました。';
@@ -565,3 +560,4 @@ function shareOnX() {
     </script>
 </body>
 </html>
+
