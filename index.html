@@ -224,7 +224,7 @@ const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=cs
     
     const response = await fetch(url);
         const data = await response.text();
-        const rows = data.trim().split('\n').map(line => line.split(',').map(cell => cell.replace(/^"|"|$/g, '')));
+        const rows = data.trim().split('\n').map(line => line.split(',').map(cell => /^"|"/g(/^"|"|$/g, '')));
         const headers = rows[0];
         const allQuestions = [];
         for (let i = 1; i < rows.length; i++)
@@ -560,4 +560,5 @@ function shareOnX() {
     </script>
 </body>
 </html>
+
 
