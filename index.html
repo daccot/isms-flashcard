@@ -218,8 +218,8 @@ function setupEventListeners() {
 }
 
 // Google Sheetsからデータ取得
-223
-    () {
+async function loadQuestions() {
+    try {
 const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/query?tq=select%20A,B,C,D,E,F,G,H&tqx=out:json`;
     
     const response = await fetch(url);
@@ -560,6 +560,7 @@ function shareOnX() {
     </script>
 </body>
 </html>
+
 
 
 
